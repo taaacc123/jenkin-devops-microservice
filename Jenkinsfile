@@ -24,6 +24,8 @@ pipeline
 				echo "Integration Test"
 			}
 		}
+	} post {
+		
 	}
 }
 	
