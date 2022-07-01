@@ -1,9 +1,10 @@
 pipeline 
 {
-	agent any
+	agent { dcoker {image 'maven:3.6.3'} }
 	stages {
 		stage('Build') {
 			steps {
+				sh 'maven --version'
                	echo "Build"
 			}
 		}
