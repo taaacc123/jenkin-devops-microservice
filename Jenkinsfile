@@ -1,8 +1,8 @@
 pipeline 
 {
 	//agent { docker { image 'maven:3.6.3'} }
-	//agent { docker { image 'girireddychinnu/hello-world-python:0.0.4.RELEASE'}}
-	agent any
+	agent { docker { image 'girireddychinnu/hello-world-python:0.0.4.RELEASE'}}
+	//agent any
 	environment {
 		dockerHome = tool 'myDocker'
 		mavenHome = tool 'myMaven'
@@ -22,6 +22,11 @@ pipeline
 				echo "BUILD_TAG - $env.BUILD_TAG"
 				echo "BUILD_URL - $env.BUILD_URL"
 				
+			}
+		}
+		stage('Run') {
+			steps {
+				sh 'docker run -d -p 5000:5000 girireddychinnu/hello-world-python:0.0.4.RELEASE'
 			}
 		}
 		stage('Test') {
