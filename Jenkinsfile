@@ -5,14 +5,14 @@ pipeline
 	//agent any
 	environment {
 		dockerHome = tool 'myDocker'
-		mavenHome = tool 'myMaven'
-		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+		//mavenHome = tool 'myMaven'
+		PATH = "$dockerHome/bin:$PATH"
 		//add docker bin anf maven bin to path
 	}
 	stages {
 		stage('Build') {
 			steps {
-				sh 'mvn --version'
+				//sh 'mvn --version'
 				sh 'docker --version'
                	echo "Build"
 				echo "$PATH"
