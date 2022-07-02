@@ -58,6 +58,7 @@ pipeline
 					docker.withRegistry('', 'docker-creds'){
 					dockerImage.push();
 					dockerImage.push('latest');
+					dockerImage.run();
 					}
 				}
 			}
