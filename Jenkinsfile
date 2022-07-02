@@ -1,21 +1,15 @@
 pipeline 
 {
 	//agent { docker { image 'maven:3.6.3'} }
-	//agent { docker { image 'girireddychinnu/hello-world-python:0.0.4.RELEASE'}}
-	agent { dockerfile true }
+	agent { docker { image 'hello-world-python:0.0.4.RELEASE'}}
+	//agent { dockerfile true }
 	stages {
-		stage('Build') {
-			steps {
-				//sh 'mvn --version'
-               	echo "Build1"
-				sh 'docker build -t hello-world-python:0.0.5.RELEASE .'
-			}
-		}
+		
 		stage('Run') {
 			steps {
 				sh 'python --version'
                	echo "Run"
-				sh 'docker run --rm hello-world-python:0.0.5.RELEASE'
+				sh 'docker run --rm hello-world-python:0.0.4.RELEASE'
 			}
 		}
 		stage('Test') {
