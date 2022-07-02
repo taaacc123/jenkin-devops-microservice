@@ -1,45 +1,42 @@
 pipeline 
 {
 	//agent { docker { image 'maven:3.6.3'} }
-	//agent { docker { image 'hello-world-python:0.0.4.RELEASE'}}
-	//agent { dockerfile true }
+	//agent { docker { image 'girireddychinnu/hello-world-python:0.0.4.RELEASE'}}
 	agent any
-	environment {
-		DOCKERHUB_CREDENTIALS=credentials('docker-creds')
-	}
 	stages {
-		
 		stage('Build') {
 			steps {
-				//sh 'python --version'
+				//sh 'mvn --version'
                	echo "Build"
-				sh 'docker build -t girireddychinnu/hello-world-python:0.0.4.RELEASE .'
+				echo "$PATH"
+				echo "BUILD_NUMBER - $env.BUILD_NUMBER"
+				echo "BUILD_ID - $env.BUILD_ID"
+				echo "JOB_NAME - $env.JOB_NAME"
+				echo "BUILD_TAG - $env.BUILD_TAG"
+				echo "BUILD_URL - $env.BUILD_URL"
+				
 			}
 		}
-		stage('Login') {
-
+		stage('Test') {
 			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				echo "Test"
 			}
 		}
-
-		stage('Push') {
-
+		stage('Integration Test') {
 			steps {
-				sh 'docker push girireddychinnu/hello-world-python:0.0.4.RELEASE'
+				echo "Integration Test"
 			}
 		}
-		stage('Run') {
-
-			steps {
-				echo "run"
-				sh 'docker run -p 5000:5000 girireddychinnu/hello-world-python:0.0.4.RELEASE'
-			}
-		}
-}
-post {
+	} 
+	post {
 		always {
-			sh 'docker logout'
+			echo "im always"
+		}
+		success {
+			echo "im success"
+		}
+		failure {
+			echo "im failed"
 		}
 	}
 }
