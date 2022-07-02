@@ -6,6 +6,8 @@ RUN pip install flask
 RUN pip3 install flask
 RUN pip install requests
 RUN pip install -r requirements.txt
+RUN apt install curl
+RUN curl --version
 RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
   && tar xzvf docker-17.04.0-ce.tgz \
   && mv docker/docker /usr/local/bin \
