@@ -1,8 +1,9 @@
 pipeline 
 {
 	//agent { docker { image 'maven:3.6.3'} }
-	agent { docker { image 'hello-world-python:0.0.4.RELEASE'}}
+	//agent { docker { image 'hello-world-python:0.0.4.RELEASE'}}
 	//agent { dockerfile true }
+	agent any
 	stages {
 		
 		stage('Run') {
