@@ -8,7 +8,7 @@ pipeline
 		
 		stage('Run') {
 			steps {
-				sh 'python --version'
+				//sh 'python --version'
                	echo "Run"
 				sh 'docker run --rm hello-world-python:0.0.4.RELEASE'
 			}
