@@ -4,35 +4,35 @@ pipeline
 	//agent { docker { image 'hello-world-python:0.0.4.RELEASE'}}
 	//agent { dockerfile true }
 	agent any
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('docker-creds')
+	}
 	stages {
 		
-		stage('Run') {
+		stage('Build') {
 			steps {
 				//sh 'python --version'
-               	echo "Run"
-				sh 'docker run --rm hello-world-python:0.0.4.RELEASE'
+               	echo "Build"
+				sh 'docker build --t girireddychinnu/hello-world-python:0.0.4.RELEASE .'
 			}
 		}
-		stage('Test') {
+		stage('Login') {
+
 			steps {
-				echo "Test"
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
 			}
 		}
-		stage('Integration Test') {
+
+		stage('Push') {
+
 			steps {
-				echo "Integration Test"
+				sh 'docker push girireddychinnu/hello-world-python:0.0.4.RELEASE'
 			}
 		}
-	} 
-	post {
+}
+post {
 		always {
-			echo "im always"
-		}
-		success {
-			echo "im success"
-		}
-		failure {
-			echo "im failed"
+			sh 'docker logout'
 		}
 	}
 }
