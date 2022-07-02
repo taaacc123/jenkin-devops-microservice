@@ -13,7 +13,7 @@ pipeline
 			steps {
 				//sh 'python --version'
                	echo "Build"
-				sh 'docker build --t girireddychinnu/hello-world-python:0.0.4.RELEASE .'
+				sh 'docker build -t girireddychinnu/hello-world-python:0.0.4.RELEASE .'
 			}
 		}
 		stage('Login') {
@@ -27,6 +27,13 @@ pipeline
 
 			steps {
 				sh 'docker push girireddychinnu/hello-world-python:0.0.4.RELEASE'
+			}
+		}
+		stage('Run') {
+
+			steps {
+				echo "run"
+				sh 'docker run -p 5000:5000 girireddychinnu/hello-world-python:0.0.4.RELEASE'
 			}
 		}
 }
