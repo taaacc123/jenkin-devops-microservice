@@ -1,12 +1,16 @@
 pipeline 
 {
 	//agent { docker { image 'maven:3.6.3'} }
-	agent { docker { image 'girireddychinnu/hello-world-python:0.0.4.RELEASE'}}
+	//agent { docker { image 'girireddychinnu/hello-world-python:0.0.4.RELEASE'}}
+	agent { dockerfile true }
 	stages {
 		stage('Build') {
 			steps {
 				//sh 'mvn --version'
                	echo "Build"
+				sh """
+				docker build -t girireddychinnu/hello-world-python:0.0.4.RELEASE
+				"""
 			}
 		}
 		stage('Run') {

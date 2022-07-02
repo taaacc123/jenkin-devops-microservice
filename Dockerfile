@@ -7,6 +7,6 @@ RUN pip3 install flask
 RUN pip install requests
 RUN pip install -r requirements.txt
 EXPOSE 5000
-CMD python ./gig/form.py
+CMD python form.py
 #COPY requirements.txt /app/requirements.txt
-#ENTRYPOINT ["python", "./gig/form.py"]
+#ENTRYPOINT ["python", "form.py"]
