@@ -1,18 +1,18 @@
 pipeline 
 {
 	//agent { docker { image 'maven:3.6.3'} }
-	agent { docker { image 'girireddychinnu/hello-world-python:0.0.4.RELEASE'}}
-	//agent any
+	//agent { docker { image 'girireddychinnu/hello-world-python:0.0.4.RELEASE'}}
+	agent any
 	environment {
 		dockerHome = tool 'myDocker'
-		//mavenHome = tool 'myMaven'
-		PATH = "$dockerHome/bin:$PATH"
-		//add docker bin anf maven bin to path
+		mavenHome = tool 'myMaven'
+		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+		//add docker bin anf maven bi n to path
 	}
 	stages {
-		stage('Build') {
+		stage('Checkout') {
 			steps {
-				//sh 'mvn --version'
+				sh 'mvn --version'
 				sh 'docker --version'
                	echo "Build"
 				echo "$PATH"
@@ -24,19 +24,19 @@ pipeline
 				
 			}
 		}
-		stage('Run') {
+		stage('Compile') {
 			steps {
-				sh 'docker run -d -p 5000:5000 girireddychinnu/hello-world-python:0.0.4.RELEASE'
+				sh "mvn clean compile"
 			}
 		}
 		stage('Test') {
 			steps {
-				echo "Test"
+				sh "mvn test"
 			}
 		}
 		stage('Integration Test') {
 			steps {
-				echo "Integration Test"
+				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
 	} 
