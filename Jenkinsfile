@@ -8,14 +8,14 @@ pipeline
 			steps {
 				//sh 'mvn --version'
                	echo "Build1"
-				sh 'docker build -t hello-world-python:0.0.4.RELEASE'
+				sh 'docker build -t hello-world-python:0.0.5.RELEASE .'
 			}
 		}
 		stage('Run') {
 			steps {
 				sh 'python --version'
                	echo "Run"
-				sh 'docker run --rm hello-world-python:0.0.4.RELEASE'
+				sh 'docker run --rm hello-world-python:0.0.5.RELEASE'
 			}
 		}
 		stage('Test') {
