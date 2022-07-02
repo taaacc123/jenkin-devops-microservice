@@ -7,7 +7,7 @@ pipeline
 		stage('Build') {
 			steps {
 				//sh 'mvn --version'
-               	echo "Build"
+               	echo "Build1"
 				sh 'docker build -t girireddychinnu/hello-world-python:0.0.4.RELEASE'
 			}
 		}
